@@ -1,0 +1,44 @@
+syntax="proto3";
+
+package img_service;
+option go_package="genproto/img_service";
+
+service Service {
+    rpc Create(CreateRequest) returns (CreateResponse) {}
+    rpc GetList(GetListRequest) returns (GetListResponse) {}
+    rpc Get(ImgPrimaryKey) returns (Img) {}
+}
+
+message CreateRequest {
+    string title = 1;
+    bytes body = 2;     // binary image
+}
+
+message CreateResponse {
+    string id = 1;
+    string title = 2;
+    string created_at = 3;
+    string updated_at = 4;
+}
+
+message GetListRequest {
+    int32 limit = 1;
+    int32 offset = 2;
+}
+
+message GetListResponse {
+    repeated Img imgs = 1;
+    int32 count = 2;
+}
+
+message Img {
+    string id = 1;
+    string title = 2;
+    string created_at = 3;
+    string updated_at = 4;
+    bytes body = 5;     // binary image
+}
+
+message ImgPrimaryKey {
+    string id = 1;
+}
